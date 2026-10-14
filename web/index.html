@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>RailSync | Intelligent Railway Operations Platform</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="logo">
+        <svg viewBox="0 0 24 24" width="22" height="22"
+             fill="none" stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round">
+          <rect x="5" y="3" width="14" height="14" rx="3"/>
+          <path d="M5 11h14M9 21l2-4M15 21l-2-4"/>
+          <circle cx="9" cy="14" r=".6"/>
+          <circle cx="15" cy="14" r=".6"/>
+        </svg>
+      </div>
+      <div>
+        <b>RailSync</b>
+        <span>Operations Platform</span>
+      </div>
+    </div>
+
+    <nav>
+      <a href="#dash" class="active"><i>&#9632;</i> Dashboard</a>
+      <a href="#m1"><i>1</i> Search Trains &amp; Alerts</a>
+      <a href="#m2"><i>2</i> Search &amp; Compare Documents</a>
+      <a href="#m3"><i>3</i> Route Planning &amp; Data Tools</a>
+      <a href="#m4"><i>4</i> Passenger Flow &amp; Platforms</a>
+      <a href="#m5"><i>5</i> Scheduling &amp; Critical Stations</a>
+      <a href="#m6"><i>6</i> Delays &amp; Passenger Statistics</a>
+    </nav>
+
+    <div class="side-foot">
+      RailSync<br>Railway Operations Tools
+    </div>
+  </aside>
+
+  <main>
+    <header class="topbar">
+      <button class="burger" id="burger" aria-label="Menu">&#9776;</button>
+      <div>
+        <h1>Intelligent Railway Operations Platform</h1>
+        <p>Search railway records, plan routes, manage passenger flow and view statistics.</p>
+      </div>
+      <div class="status" id="status">
+        <span class="dot"></span> connecting&hellip;
+      </div>
+    </header>
+
+    <!-- Dashboard -->
+    <section id="dash">
+      <div class="kpis" id="kpis"></div>
+
+      <div class="card">
+        <details>
+          <summary>Technical details: algorithms used</summary>
+          <div class="tbl">
+            <table class="map">
+              <thead>
+                <tr>
+                  <th>Module</th>
+                  <th>Railway task</th>
+                  <th>Algorithms</th>
+                  <th>Cost</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span class="pill p1">M1</span> Strings</td>
+                  <td>Find trains, stations, tickets, alert keywords</td>
+                  <td>KMP &middot; Z &middot; Rabin-Karp &middot; Aho-Corasick</td>
+                  <td>O(n+m)</td>
+                </tr>
+                <tr>
+                  <td><span class="pill p2">M2</span> Suffix</td>
+                  <td>Index service documents, spot repeated text</td>
+                  <td>Suffix array &middot; LCP/Kasai &middot; Suffix automaton</td>
+                  <td>O(n log&sup2; n)</td>
+                </tr>
+                <tr>
+                  <td><span class="pill p3">M3</span> DP</td>
+                  <td>Fix names, plan routes, order operations</td>
+                  <td>Edit distance &middot; Bitmask TSP &middot; Matrix-chain &middot; OBST</td>
+                  <td>O(nm) &middot; O(2&#8319;n&sup2;) &middot; O(n&sup3;)</td>
+                </tr>
+                <tr>
+                  <td><span class="pill p4">M4</span> Flow</td>
+                  <td>Passenger capacity, bottlenecks, platform allocation</td>
+                  <td>Ford-Fulkerson &middot; Edmonds-Karp &middot; Dinic &middot; K&ouml;nig</td>
+                  <td>O(VE&sup2;) &middot; O(V&sup2;E)</td>
+                </tr>
+                <tr>
+                  <td><span class="pill p5">M5</span> NP</td>
+                  <td>Scheduling constraints, critical connections</td>
+                  <td>3-SAT &rarr; Clique &rarr; IS &rarr; VC &middot; 2-approximation</td>
+                  <td>NP-complete</td>
+                </tr>
+                <tr>
+                  <td><span class="pill p6">M6</span> Random</td>
+                  <td>Ranking, event streams, big numbers, statistics</td>
+                  <td>Rand. QuickSort &middot; Reservoir &middot; Miller-Rabin &middot; Blelloch &middot; Brent</td>
+                  <td>O(n log n) exp.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- Search Trains and Alerts -->
+    <section id="m1">
+      <div class="sec-head">
+        <span class="pill p1">M1</span>
+        <div>
+          <h2>Search Trains &amp; Alerts</h2>
+          <p>Fast search across trains, stations, tickets and service alerts.</p>
+        </div>
+      </div>
+
+      <div class="grid">
+        <article class="card wide" id="t-search">
+          <div class="card-head">
+            <h3>Search railway records</h3>
+            <details class="technical-details">
+              <summary>Technical details</summary>
+              <span class="tag">KMP &middot; Z &middot; Rabin-Karp</span>
+            </details>
+          </div>
+          <div class="form">
+            <input name="q" placeholder="Try: express, fog, PNR284, vijay" value="express">
+            <select name="scope">
+              <option value="all">All records</option>
+              <option value="train">Trains</option>
+              <option value="station">Stations</option>
+              <option value="ticket">Tickets / booking codes</option>
+              <option value="alert">Alerts</option>
+            </select>
+            <select name="algo">
+              <option value="kmp">KMP</option>
+              <option value="z">Z-function</option>
+              <option value="rk">Rabin-Karp</option>
+            </select>
+            <button class="run">Search</button>
+          </div>
+          <div class="out"></div>
+        </article>
+
+        <article class="card" id="t-alerts">
+          <div class="card-head">
+            <h3>Alert keyword scanner</h3>
+            <details class="technical-details">
+              <summary>Technical details</summary>
+              <span class="tag">Aho-Corasick</span>
+            </details>
+          </div>
+          <div class="form">
+            <input name="text" placeholder="Paste an alert (empty = scan all alerts)">
+            <button class="run">Scan</button>
+          </div>
+          <div class="out"></div>
+        </article>
+
+        <article class="card" id="t-patterns">
+          <div class="card-head">
+            <h3>Repeated operation patterns</h3>
+            <details class="technical-details">
+              <summary>Technical details</summary>
+              <span class="tag">Z-function</span>
+            </details>
+          </div>
+          <div class="form">
+            <input name="s" value="ADADADLADADADL" placeholder="Event codes e.g. ADADADL...">
+            <button class="run">Analyse</button>
+          </div>
+          <p class="hint">A = arrive, D = depart, L = late. Check whether the sequence of events repeats.</p>
+          <div class="out"></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Search and Compare Documents -->
+    <section id="m2">
+      <div class="sec-head">
+        <span class="pill p2">M2</span>
+        <div>
+          <h2>Search &amp; Compare Documents</h2>
+          <p>Index service documents and measure how similar they are.</p>
+        </div>
+      </div>
+
+      <div class="grid">
+        <article class="card wide" id="t-sim">
+          <div class="card-head">
+            <h3>Compare Service Documents</h3>
+            <details class="technical-details">
+              <summary>Technical details</summary>
+              <span class="tag">Suffix array &middot; LCP &middot; Automaton</span>
+            </details>
+          </div>
+          <div class="form">
+            <select name="a"></select>
+            <select name="b"></select>
+            <button class="run">Compare</button>
+          </div>
+          <div class="out"></div>
+        </article>
+
+        <article class="card wide" id="t-dsearch">
+          <div class="card-head">
+            <h3>Search Service Documents</h3>
+            <details class="technical-details">
+              <summary>Technical details</summary>
+              <span class="tag">Suffix array binary search</span>
+            </details>
+          </div>
+          <div class="form">
+            <input name="q" value="sleeper coaches" placeholder="e.g. pantry car, nellore">
+            <button class="run">Search</button>
+          </div>
+          <div class="out"></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Route Planning and Data Tools -->
+    <section id="m3">
+      <div class="sec-head">
+        <span class="pill p3">M3</span>
+        <div>
+          <h2>Route Planning &amp; Data Tools</h2>
+          <p>Correct data, plan routes and order operations optimally.</p>
+        </div>
+      </div>
+
+      <div class="grid">
+        <article class="card" id="t-correct">
+          <div class="card-head">
+            <h3>Find the Correct Station Name</h3>
+            <details class="technical-details">
+              <summary>Technical details</summary>
+              <span class="tag">Levenshtein &middot; Damerau</span>
+            </details>
+          </div>
+          <div class="form">
+            <input name="word" value="vijayawda" placeholder="Mis-spelt station, e.g. hyderbad">
+            <button class="run">Correct</button>
+          </div>
+          <div class="out"></div>
+        </article>
+
+        <article class="card" id="t-route">
+          <div class="card-head">
+            <h3>Plan a Route</h3>
+            <details class="technical-details">
+              <summary>Technical details</summary>
+              <span class="tag">Bitmask DP (TSP)</span>
+            </details>
+          </div>
+          <div class="form">
+            <select name="stations" multiple size="6"></select>
+            <button class="run">Optimise</button>
+          </div>
+          <p class="hint">Ctrl/Cmd-click to pick 2 to 11 stations.</p>
+          <div class="out"></div>
+        </article>
+
+        <article class="card" id="t-matrix">
+          <div class="card-head">
+            <h3>Cheapest order of data operations</h3>
+            <details class="technical-details">
+              <summary>Technical details</summary>
+              <span class="tag">Matrix-chain DP</span>
+            </details>
+          </div>
+          <div class="form">
+            <input name="dims" value="40,20,30,10,30" placeholder="Dimensions p0,p1,...,pn">
+            <button class="run">Optimise</button>
+          </div>
+          <div class="out"></div>
+        </article>
+
+        <article class="card" id="t-obst">
+          <div class="card-head">
+            <h3>Optimal station index tree</h3>
+            <details class="technical-details">
+              <summary>Technical details</summary>
+              <span class="tag">Optimal BST</span>
+            </details>
+          </div>
+          <div class="form">
+            <button class="run">Build tree</button>
+          </div>
+          <p class="hint">Frequently accessed stations are placed closer to the root.</p>
+          <div class="out"></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Passenger Flow and Platforms -->
+    <section id="m4">
+      <div class="sec-head">
+        <span class="pill p4">M4</span>
+        <div>
+          <h2>Passenger Flow &amp; Platforms</h2>
+          <p>Passenger capacity, critical bottlenecks and platform allocation.</p>
+        </div>
+      </div>
+
+      <div class="grid">
+        <article class="card wide" id="t-flow">
+          <div class="card-head">
+            <h3>Check Passenger Capacity</h3>
+            <details class="technical-details">
+              <summary>Technical details</summary>
+              <span class="tag">Ford-Fulkerson &middot; Edmonds-Karp &middot; Dinic &middot; Min-cut</span>
+            </details>
+          </div>
+          <div class="form">
+            <label>From<select name="source"></select></label>
+            <label>To<select name="sink"></select></label>
+            <button class="run">Check capacity</button>
+          </div>
+          <div class="out"></div>
+        </article>
+
+        <article class="card wide" id="t-platforms">
+          <div class="card-head">
+            <h3>Train &rarr; platform assignment</h3>
+            <details class="technical-details">
+              <summary>Technical details</summary>
+              <span class="tag">Bipartite matching &middot; K&ouml;nig</span>
+            </details>
+          </div>
+          <div class="form">
+            <button class="run">Assign platforms</button>
+          </div>
+          <div class="out"></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Scheduling and Critical Stations -->
+    <section id="m5">
+      <div class="sec-head">
+        <span class="pill p5">M5</span>
+        <div>
+          <h2>Scheduling &amp; Critical Stations</h2>
+          <p>Scheduling constraints and critical railway connections.</p>
+        </div>
+      </div>
+
+      <div class="grid">
+        <article class="card wide" id="t-sat">
+          <div class="card-head">
+            <h3>Check Scheduling Rules</h3>
+            <details class="technical-details">
+              <summary>Technical details</summary>
+              <span class="tag">Reduction chain</span>
+            </details>
+          </div>
+          <div class="form">
+            <input name="clauses"
+                   value="1,2,3;-1,2,4;1,-2,-4;-2,3,4;-1,-3,4"
+                   placeholder="Clauses: 1,-2,3;-1,2,4">
+            <button class="run">Check schedule</button>
+            <button class="ghost" data-preset="unsat">Load conflicting rules</button>
+          </div>
+          <p class="hint">Each number is a variable (negative = NOT). Variable x<sub>i</sub> = "service i runs in the peak slot".</p>
+          <div class="out"></div>
+        </article>
+
+        <article class="card wide" id="t-vc">
+          <div class="card-head">
+            <h3>Identify Critical Stations</h3>
+            <details class="technical-details">
+              <summary>Technical details</summary>
+              <span class="tag">Maximal matching</span>
+            </details>
+          </div>
+          <div class="form">
+            <button class="run">Find critical stations</button>
+          </div>
+          <div class="out"></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Delays and Passenger Statistics -->
+    <section id="m6">
+      <div class="sec-head">
+        <span class="pill p6">M6</span>
+        <div>
+          <h2>Delays &amp; Passenger Statistics</h2>
+          <p>Ranking, event streams, large numbers and passenger statistics.</p>
+        </div>
+      </div>
+
+      <div class="grid">
+        <article class="card" id="t-sort">
+          <div class="card-head">
+            <h3>Most delayed trains</h3>
+            <details class="technical-details">
+              <summary>Technical details</summary>
+              <span class="tag">Randomised QuickSort</span>
+            </details>
+          </div>
+          <div class="form">
+            <input name="k" type="number" min="1" max="12" value="5">
+            <button class="run">Show delays</button>
+          </div>
+          <div class="out"></div>
+        </article>
+
+        <article class="card" id="t-res">
+          <div class="card-head">
+            <h3>Sample Railway Events</h3>
+            <details class="technical-details">
+              <summary>Technical details</summary>
+              <span class="tag">Reservoir sampling</span>
+            </details>
+          </div>
+          <div class="form">
+            <input name="k" type="number" min="1" max="20" value="5">
+            <button class="run">Sample</button>
+          </div>
+          <div class="out"></div>
+        </article>
+
+        <article class="card" id="t-prime">
+          <div class="card-head">
+            <h3>Check Whether a Number Is Prime</h3>
+            <details class="technical-details">
+              <summary>Technical details</summary>
+              <span class="tag">Miller-Rabin</span>
+            </details>
+          </div>
+          <div class="form">
+            <input name="n" value="1000000007" placeholder="n &lt; 2^62">
+            <button class="run">Test</button>
+          </div>
+          <p class="hint">Try 561 (Carmichael), 1000000007, 4611686018427387847.</p>
+          <div class="out"></div>
+        </article>
+
+        <article class="card" id="t-scan">
+          <div class="card-head">
+            <h3>Cumulative passenger statistics</h3>
+            <details class="technical-details">
+              <summary>Technical details</summary>
+              <span class="tag">Blelloch scan &middot; Parallel reduce &middot; Brent</span>
+            </details>
+          </div>
+          <div class="form">
+            <button class="run">View statistics</button>
+          </div>
+          <div class="out"></div>
+        </article>
+      </div>
+    </section>
+
+    <footer>
+      RailSync &middot; DSA-3 Advanced Algorithms project
+      &middot; Java engine, HTML/CSS/JS dashboard
+    </footer>
+  </main>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
